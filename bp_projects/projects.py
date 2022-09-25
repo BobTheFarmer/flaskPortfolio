@@ -10,14 +10,6 @@ def portfolio():
     return render_template("portfolio.html")
 
 # connects /kangaroos path to render kangaroos.html
-@app_projects.route('/kangaroos/')
-def kangaroos():
-    return render_template("kangaroos.html")
-
-@app_projects.route('/walruses/')
-def walruses():
-    return render_template("walruses.html")
-
-@app_projects.route('/hawkers/')
-def hawkers():
-    return render_template("hawkers.html")
+@app_projects.route('/purpose-roles/')
+def purposeAndRoles():
+    return render_template("purposeAndRoles.html")
