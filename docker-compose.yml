@@ -4,7 +4,7 @@ services:
                 image: flask_group_v1
                 build: .
                 ports:
-                        - "8086:8080"
+                        - "8054:8080"
                 volumes:
                         - persistent_volume:/app/volumes
 volumes:
@@ -13,4 +13,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/ubuntu/flaskPortfolio/volumes
+      device: /home/ubuntu/T8054_Scrum_Daddys/volumes
