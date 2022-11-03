@@ -44,6 +44,7 @@ def makeSummary():
         response = requests.request("GET", url, headers=headers, params=querystring)
         data=response.json()
         DataSave = data
+        print("[i] requested")
     else:
         data = DataSave
     return data
@@ -68,7 +69,6 @@ def functionAndPurpose():
 @app.route('/weatherData/')  # allows access to weather data 
 def weatherData():
     weatherData = makeSummary()
-    print("[i] requested")
     return weatherData
 
 # this runs the application on the development server
