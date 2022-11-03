@@ -11,7 +11,7 @@ import time
 app.register_blueprint(app_api) # register api routes
 app.register_blueprint(app_projects) # register api routes
 
-def timeRefresh(currentTime):
+def timeRefresh():
     global last_run  # the last_run global is preserved between calls to function
     try: last_run
     except: last_run = None
@@ -31,15 +31,22 @@ def timeRefresh(currentTime):
 
 
 def makeSummary():
-    url = "https://visual-crossing-weather.p.rapidapi.com/forecast"
-    querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
-    headers = {
-	    "X-RapidAPI-Key": "c87ee363dfmsh4fb6fcceafe4c22p1bcd5bjsnbc99e32cc17c",
-	    "X-RapidAPI-Host": "visual-crossing-weather.p.rapidapi.com"
-    }
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    Data=response.json()
-    return Data
+    global DataSave
+    try: DataSave
+    except: DataSave = None
+    if timeRefresh():
+        url = "https://visual-crossing-weather.p.rapidapi.com/forecast"
+        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        headers = {
+	        "X-RapidAPI-Key": "c87ee363dfmsh4fb6fcceafe4c22p1bcd5bjsnbc99e32cc17c",
+	        "X-RapidAPI-Host": "visual-crossing-weather.p.rapidapi.com"
+        }
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        data=response.json()
+        DataSave = data
+    else:
+        data = DataSave
+    return data
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
@@ -60,10 +67,8 @@ def functionAndPurpose():
 
 @app.route('/weatherData/')  # allows access to weather data 
 def weatherData():
-    time = now.hour
-    if timeRefresh(time):
-        weatherData = makeSummary()
-        print("[i] requested")
+    weatherData = makeSummary()
+    print("[i] requested")
     return weatherData
 
 # this runs the application on the development server
