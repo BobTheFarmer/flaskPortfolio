@@ -31,23 +31,45 @@ def timeRefresh():
 
 
 def makeSummary():
-    global DataSave
+    global sanDiegoDataSave
+    global washingtonDCDataSave
+    global newYorkDataSave
+    global singaporeDataSave
     try: DataSave
     except: DataSave = None
     if timeRefresh():
         url = "https://visual-crossing-weather.p.rapidapi.com/forecast"
-        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
         headers = {
 	        "X-RapidAPI-Key": "c87ee363dfmsh4fb6fcceafe4c22p1bcd5bjsnbc99e32cc17c",
 	        "X-RapidAPI-Host": "visual-crossing-weather.p.rapidapi.com"
         }
+        # San Diego Data
+        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
         response = requests.request("GET", url, headers=headers, params=querystring)
-        data=response.json()
-        DataSave = data
+        sanDiegoData=response.json()
+        sanDiegoDataSave = sanDiegoData
+        # Washington DC Data
+        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        washingtonDCData=response.json()
+        washingtonDCDataSave = washingtonDCData
+        # San Diego Data
+        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        newYorkData=response.json()
+        newYorkDataSave = newYorkData
+        # San Diego Data
+        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        singaporeData=response.json()
+        singaporeDataSave = singaporeData
         print("[i] requested")
     else:
-        data = DataSave
-    return data
+        sanDiegoData = sanDiegoDataSave
+        washingtonDCData = washingtonDCDataSave
+        newYorkData = newYorkDataSave
+        singaporeData = singaporeDataSave
+    return sanDiegoData, washingtonDCData, newYorkData, singaporeData
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
@@ -68,8 +90,8 @@ def functionAndPurpose():
 
 @app.route('/weatherData/')  # allows access to weather data 
 def weatherData():
-    weatherData = makeSummary()
-    return weatherData
+    weatherDataSD, weatherDataDC, weatherDataNY, weatherDataSG = makeSummary()
+    return weatherDataSD, weatherDataDC, weatherDataNY, weatherDataSG
 
 # this runs the application on the development server
 if __name__ == "__main__":
