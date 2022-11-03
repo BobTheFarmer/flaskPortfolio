@@ -30,46 +30,57 @@ def timeRefresh():
     return False
 
 
-def makeSummary():
+def makeSummary(location):
     global sanDiegoDataSave
+    try: sanDiegoDataSave
+    except: sanDiegoDataSave = None
+
     global washingtonDCDataSave
+    try: washingtonDCDataSave
+    except: washingtonDCDataSave = None
+
     global newYorkDataSave
-    global singaporeDataSave
-    try: DataSave
+    try: newYorkDataSave
     except: DataSave = None
+
+    global singaporeDataSave
+    try: singaporeDataSave
+    except: singaporeDataSave = None
+
     if timeRefresh():
         url = "https://visual-crossing-weather.p.rapidapi.com/forecast"
         headers = {
 	        "X-RapidAPI-Key": "c87ee363dfmsh4fb6fcceafe4c22p1bcd5bjsnbc99e32cc17c",
 	        "X-RapidAPI-Host": "visual-crossing-weather.p.rapidapi.com"
         }
-        # San Diego Data
-        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        querystring = {"aggregateHours":"24","location":location,"contentType":"json","unitGroup":"us","shortColumnNames":"0"}
         response = requests.request("GET", url, headers=headers, params=querystring)
-        sanDiegoData=response.json()
-        sanDiegoDataSave = sanDiegoData
-        # Washington DC Data
-        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        washingtonDCData=response.json()
-        washingtonDCDataSave = washingtonDCData
-        # San Diego Data
-        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        newYorkData=response.json()
-        newYorkDataSave = newYorkData
-        # San Diego Data
-        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        singaporeData=response.json()
-        singaporeDataSave = singaporeData
+        if location == "San,Diego,USA":
+            sanDiegoData=response.json()
+            sanDiegoDataSave = sanDiegoData
+        elif location == "Washington,DC,USA":
+            washingtonDCData=response.json()
+            washingtonDCDataSave = washingtonDCData
+        elif location == "New,York,New,York,USA":
+            newYorkData=response.json()
+            newYorkDataSave = newYorkData
+        elif location == "Singapore,Singapore":
+            singaporeData=response.json()
+            singaporeDataSave = singaporeData
         print("[i] requested")
     else:
         sanDiegoData = sanDiegoDataSave
         washingtonDCData = washingtonDCDataSave
         newYorkData = newYorkDataSave
         singaporeData = singaporeDataSave
-    return sanDiegoData, washingtonDCData, newYorkData, singaporeData
+        if location == "San,Diego,USA":
+            return sanDiegoData
+        elif location == "Washington,DC,USA":
+            return washingtonDCData
+        elif location == "New,York,New,York,USA":
+            return newYorkData
+        elif location == "Singapore,Singapore":
+            return singaporeData
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
@@ -88,10 +99,25 @@ def stub():
 def functionAndPurpose():
     return render_template("functionAndPurpose.html")
 
-@app.route('/weatherData/')  # allows access to weather data 
-def weatherData():
-    weatherDataSD, weatherDataDC, weatherDataNY, weatherDataSG = makeSummary()
-    return weatherDataSD, weatherDataDC, weatherDataNY, weatherDataSG
+@app.route('/weatherDataSD/')  # allows access to weather data 
+def weatherDataSD():
+    weatherDataSD = makeSummary("San,Diego,USA")
+    return weatherDataSD
+    
+@app.route('/weatherDataDC/')  # allows access to weather data 
+def weatherDataDC():
+    weatherDataDC = makeSummary("Washington,DC,USA")
+    return weatherDataDC
+    
+@app.route('/weatherDataNY/')  # allows access to weather data 
+def weatherDataNY():
+    weatherDataNY = makeSummary("New,York,New,York,USA")
+    return weatherDataNY
+    
+@app.route('/weatherDataSG/')  # allows access to weather data 
+def weatherDataSG():
+    weatherDataSG = makeSummary("Singapore,Singapore")
+    return weatherDataSG
 
 # this runs the application on the development server
 if __name__ == "__main__":
