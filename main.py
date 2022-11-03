@@ -41,7 +41,7 @@ def makeSummary(location):
 
     global newYorkDataSave
     try: newYorkDataSave
-    except: DataSave = None
+    except: newYorkDataSave = None
 
     global singaporeDataSave
     try: singaporeDataSave
@@ -53,20 +53,25 @@ def makeSummary(location):
 	        "X-RapidAPI-Key": "c87ee363dfmsh4fb6fcceafe4c22p1bcd5bjsnbc99e32cc17c",
 	        "X-RapidAPI-Host": "visual-crossing-weather.p.rapidapi.com"
         }
-        querystring = {"aggregateHours":"24","location":location,"contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        querystring = {"aggregateHours":"24","location":"San,Diego,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
         response = requests.request("GET", url, headers=headers, params=querystring)
-        if location == "San,Diego,USA":
-            sanDiegoData=response.json()
-            sanDiegoDataSave = sanDiegoData
-        elif location == "Washington,DC,USA":
-            washingtonDCData=response.json()
-            washingtonDCDataSave = washingtonDCData
-        elif location == "New,York,New,York,USA":
-            newYorkData=response.json()
-            newYorkDataSave = newYorkData
-        elif location == "Singapore,Singapore":
-            singaporeData=response.json()
-            singaporeDataSave = singaporeData
+        sanDiegoData=response.json()
+        sanDiegoDataSave = sanDiegoData
+
+        querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        washingtonDCData=response.json()
+        washingtonDCDataSave = washingtonDCData
+
+        querystring = {"aggregateHours":"24","location":"New,York,New,York,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        newYorkData=response.json()
+        newYorkDataSave = newYorkData
+
+        querystring = {"aggregateHours":"24","location":"Singapore,Singapore","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        singaporeData=response.json()
+        singaporeDataSave = singaporeData
         print("[i] requested")
     else:
         sanDiegoData = sanDiegoDataSave
