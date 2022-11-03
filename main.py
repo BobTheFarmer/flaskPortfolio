@@ -6,20 +6,29 @@ from api import app_api # Blueprint import api definition
 from bp_projects.projects import app_projects # Blueprint directory import projects definition
 from flask import jsonify # used for weather data
 import requests
+from datetime import datetime
 
 app.register_blueprint(app_api) # register api routes
 app.register_blueprint(app_projects) # register api routes
+now = datetime.now()
+
+def timeRefresh(currentTime):
+    lastUpdateTime=""
+    if (currentTime-lastUpdateTime) >= 1:
+        lastUpdateTime = now.strftime("%H")
+        return True
+    return False
 
 def makeSummary():
     url = "https://visual-crossing-weather.p.rapidapi.com/forecast"
     querystring = {"aggregateHours":"24","location":"Washington,DC,USA","contentType":"json","unitGroup":"us","shortColumnNames":"0"}
     headers = {
-    	"X-RapidAPI-Key": "eb0bbc6cc0msh085b254f1761bc2p154cf4jsne59a8dbdbaa0",
+	    "X-RapidAPI-Key": "c87ee363dfmsh4fb6fcceafe4c22p1bcd5bjsnbc99e32cc17c",
 	    "X-RapidAPI-Host": "visual-crossing-weather.p.rapidapi.com"
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
-    weatherData=response.text
-    return weatherData
+    Data=response.json()
+    return Data
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
@@ -40,8 +49,10 @@ def functionAndPurpose():
 
 @app.route('/weatherData/')  # allows access to weather data 
 def weatherData():
-    weatherData = makeSummary()
-    return jsonify(weatherData)
+    currentTime = now.strftime("%H")
+    if timeRefresh(currentTime):
+        weatherData = makeSummary()
+    return weatherData
 
 # this runs the application on the development server
 if __name__ == "__main__":
