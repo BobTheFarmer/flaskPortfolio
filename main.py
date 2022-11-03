@@ -11,11 +11,14 @@ from datetime import datetime
 app.register_blueprint(app_api) # register api routes
 app.register_blueprint(app_projects) # register api routes
 now = datetime.now()
+time = now.hour
+print(int(time))
 
 def timeRefresh(currentTime):
-    lastUpdateTime=""
-    if (currentTime-lastUpdateTime) >= 1:
-        lastUpdateTime = now.strftime("%H")
+    lastUpdateTime=1
+    if (int(currentTime)-lastUpdateTime) >= 1:
+        time = now.hour
+        lastUpdateTime = time
         return True
     return False
 
@@ -49,9 +52,10 @@ def functionAndPurpose():
 
 @app.route('/weatherData/')  # allows access to weather data 
 def weatherData():
-    currentTime = now.strftime("%H")
-    if timeRefresh(currentTime):
+    time = now.hour
+    if timeRefresh(time):
         weatherData = makeSummary()
+        print("[i] requested")
     return weatherData
 
 # this runs the application on the development server
