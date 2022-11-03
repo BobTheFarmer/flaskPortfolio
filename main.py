@@ -6,21 +6,29 @@ from api import app_api # Blueprint import api definition
 from bp_projects.projects import app_projects # Blueprint directory import projects definition
 from flask import jsonify # used for weather data
 import requests
-from datetime import datetime
+import time
 
 app.register_blueprint(app_api) # register api routes
 app.register_blueprint(app_projects) # register api routes
-now = datetime.now()
-time = now.hour
-print(int(time))
 
 def timeRefresh(currentTime):
-    lastUpdateTime=1
-    if (int(currentTime)-lastUpdateTime) >= 1:
-        time = now.hour
-        lastUpdateTime = time
+    global last_run  # the last_run global is preserved between calls to function
+    try: last_run
+    except: last_run = None
+    
+    # initialize last_run data
+    if last_run is None:
+        last_run = time.time()
         return True
+    
+    # calculate time since last update
+    elapsed = time.time() - last_run
+    if elapsed > 86400:  # update every 24 hours
+        last_run = time.time()
+        return True
+    
     return False
+
 
 def makeSummary():
     url = "https://visual-crossing-weather.p.rapidapi.com/forecast"
