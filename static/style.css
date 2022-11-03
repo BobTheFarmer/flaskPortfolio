@@ -4,7 +4,7 @@ setup
 body {
     padding: 0;
     margin: 0;
-    background-image: url("./weatherassets/San,Diego,USA.png");
+    background-image: url("./assets/San,Diego,USA.png");
     background-position: top;
     background-repeat: no-repeat;
     background-size: 106%;
@@ -12,15 +12,15 @@ body {
 }
 @font-face {
     font-family: GlacialIndifferenceBold;
-    src: url("./templates/weatherassets/glacial-indifference/GlacialIndifference-Bold.otf") format("opentype");
+    src: url("./assets/glacial-indifference/GlacialIndifference-Bold.otf") format("opentype");
 }
 @font-face {
     font-family: GlacialIndifferenceItalic;
-    src: url("./templates/weatherassets/glacial-indifference/GlacialIndifference-Italic.otf") format("opentype");
+    src: url("./assets/glacial-indifference/GlacialIndifference-Italic.otf") format("opentype");
 }
 @font-face {
     font-family: GlacialIndifferenceRegular;
-    src: url("./templates/weatherassets/glacial-indifference/GlacialIndifference-Regular.otf") format("opentype");
+    src: url("./assets/glacial-indifference/GlacialIndifference-Regular.otf") format("opentype");
 }
 /* 
 Baseline
