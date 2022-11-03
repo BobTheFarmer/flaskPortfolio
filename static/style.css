@@ -10,6 +10,7 @@ body {
     background-size: 106%;
     background-color:rgb(98, 98, 98);
 }
+
 @font-face {
     font-family: GlacialIndifferenceBold;
     src: url("./assets/glacial-indifference/GlacialIndifference-Bold.otf") format("opentype");
@@ -28,55 +29,6 @@ Baseline
 .regular {
     font-family: "GlacialIndifferenceRegular", sans-serif;
 }
-/*
-Scrollable dropdowns
-*/
-.scrollable {
-    height: 190px; 
-    overflow-y: auto;
-    position: absolute;
-    top: 60px;
-    left: 20px;
-    width: 1360vw;
-    font-family: "GlacialIndifferenceRegular", sans-serif;
-    font-size: 19px;
-    -webkit-text-fill-color: rgb(255, 255, 255, 0.6);
-
-}
-/*
-Sliders
-*/
-.slider {
-    -webkit-appearance: none;
-    width: 20%;
-    height: 15px;
-    border-radius: 5px;
-    background: rgb(167, 167, 167);;
-    outline: none;
-    opacity: 1;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-  }
-  
-  
-  
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #ffffff;
-    cursor: pointer;
-  }
-  
-  .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #ffffff;
-    cursor: pointer;
-  }
 /* 
 Navbar
 */
@@ -96,31 +48,8 @@ Navbar
     font-size: 19px;
     color: rgb(167, 167, 167);
     transition: all 300ms ease-out 0ms;
+    transition: visibility 0s, opacity 0.5s linear;
     z-index:99998;
-}
-.nav input[type=text] {
-    font-family: "GlacialIndifferenceRegular", sans-serif;
-    border: none;
-    outline: none;
-    height: 35px;
-    width: 335px;
-    font-size: 19px;
-    color: rgb(84, 84, 84);
-    background-color: transparent;
-    position: absolute;
-    top: 60px;
-    left: 33px;
-    transition: filter 300ms ease-out 0ms;
-    transition: transform 300ms ease-out 0ms;
-}
-/* .nav input:hover {
-    filter: drop-shadow(0 0 0.75rem rgb(0, 0, 0, 0.5));
-    transform: scale(1.1);
-    transform: translateY(-2px);
-} */
-::placeholder {
-    font-family: "GlacialIndifferenceRegular", sans-serif;
-    color: rgb(167, 167, 167);
 }
 .nav b {
     height: 37px;
@@ -131,8 +60,24 @@ Navbar
     position: absolute;
     top: 60px;
     left: 15px;
-    transition: filter 300ms ease-out 0ms;
-    transition: transform 300ms ease-out 0ms;
+    transition: all 300ms ease-out 0ms;
+}
+.SanDiegoUSA {
+    transition: all 300ms ease-out 0ms;
+}
+.WashingtonDCUSA {
+    transition: all 300ms ease-out 0ms;
+}
+.NewYorkUSA {
+    transition: all 300ms ease-out 0ms;
+}
+.SingaporeSingapore {
+    transition: all 300ms ease-out 0ms;
+}
+.nav b:hover {
+    filter: drop-shadow(0 0 0.75rem rgb(0, 0, 0, 0.5));
+    transform: scale(1.1);
+    transform: translateY(-2px);
 }
 .nav button {
     font-family: "GlacialIndifferenceRegular", sans-serif;
@@ -158,8 +103,8 @@ Today's info
     font-family: "GlacialIndifferenceBold", sans-serif;
     font-size: 131px;
     text-align: center;
-    caret-color: rgb(255, 255, 255, 0.72);
-	-webkit-text-stroke: 6px rgb(255, 255, 255, 0.72);
+    caret-color: rgb(255, 255, 255, 0.8);
+	-webkit-text-stroke: 6px rgb(255, 255, 255, 0.8);
 	-webkit-text-fill-color: transparent;
     /* position: absolute; */
     top: 92px;
@@ -191,6 +136,33 @@ Multiple day rotatable display
     margin-bottom: 30px;
     float: left;
 }
+.tileDay {
+    font-family: "GlacialIndifferenceBold", sans-serif;
+    font-size: 43.8px;
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 7.2px 30.6px;
+}
+.tileTemperature {
+    font-family: "GlacialIndifferenceBold", sans-serif;
+    font-size: 87.5px;
+    color: white;
+    text-align: center;
+    margin-top: -5px;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 7.2px 30.6px;
+}
+.tileInfo {
+    font-family: "GlacialIndifferenceBold", sans-serif;
+    font-size: 29.2px;
+    color: white;
+    text-align: center;
+    margin-top: -5px;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 7.2px 30.6px;
+}
+
+
+/*
 .disabled {
     fill: rgb(217, 217, 217);
     stroke: rgb(217, 217, 217);
@@ -208,4 +180,4 @@ Multiple day rotatable display
 .enabled:hover {
     filter: drop-shadow(0 0 0.75rem rgb(0, 0, 0, 0.5));
     transform: scale(1.1);
-}
+} */
